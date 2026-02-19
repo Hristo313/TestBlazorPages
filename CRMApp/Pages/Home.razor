@@ -1,0 +1,458 @@
+@layout MainLayout
+@page "/home"
+@page "/"
+
+@using Models.CRMAppData
+@using Models.NorthwindSwagger
+@using Financial
+@using Models.Financial
+@using NorthwindSwagger
+@using CRMAppData
+@inject NavigationManager NavigationManager
+@inject IFinancialService FinancialService
+@inject INorthwindSwaggerService NorthwindSwaggerService
+@inject ICRMAppDataService CRMAppDataService
+@implements IDisposable
+
+<div class="row-layout home-container">
+    <div class="column-layout page-container">
+        <div class="column-layout group">
+            <div class="row-layout header">
+                <div class="row-layout page-title">
+                    <span class="material-icons icon">
+                        dashboard
+                    </span>
+                    <h5 class="content">
+                        CRM Dashboard
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="row-layout metrics">
+            <IgbCard class="card" home-scope>
+                <IgbCardHeader>
+                    <div slot="thumbnail">
+                        <IgbAvatar Shape="AvatarShape.Circle" class="avatar" home-scope>
+                            <span class="material-icons icon_1">
+                                attach_money
+                            </span>
+                        </IgbAvatar>
+                    </div>
+                    <h3 slot="title">
+                        Total Revenue
+                    </h3>
+                    <h5 slot="subtitle">
+                </h5>
+                </IgbCardHeader>
+                <IgbCardContent>
+                    <div class="column-layout group_1">
+                        <h3 class="h3">
+                            $250,000
+                        </h3>
+                        <div class="row-layout group_2">
+                            <p class="typography__subtitle-2 text">
+                                +15%
+                            </p>
+                            <p class="typography__body-2 content">
+                                from last month
+                            </p>
+                        </div>
+                    </div>
+                </IgbCardContent>
+            </IgbCard>
+            <IgbCard class="card" home-scope>
+                <IgbCardHeader>
+                    <div slot="thumbnail">
+                        <IgbAvatar Shape="AvatarShape.Circle" class="avatar_2" home-scope>
+                            <span class="imx-icon imx-scales-balanced icon_1"></span>
+                        </IgbAvatar>
+                    </div>
+                    <h3 slot="title">
+                        Avg. Deal Value
+                    </h3>
+                    <h5 slot="subtitle">
+                </h5>
+                </IgbCardHeader>
+                <IgbCardContent>
+                    <div class="column-layout group_1">
+                        <h3 class="h3">
+                            $5,000
+                        </h3>
+                        <div class="row-layout group_2">
+                            <p class="typography__subtitle-2 text">
+                                +5%
+                            </p>
+                            <p class="typography__body-2 content">
+                                from last month
+                            </p>
+                        </div>
+                    </div>
+                </IgbCardContent>
+            </IgbCard>
+            <IgbCard class="card" home-scope>
+                <IgbCardHeader>
+                    <div slot="thumbnail">
+                        <IgbAvatar Shape="AvatarShape.Circle" class="avatar_3" home-scope>
+                            <span class="material-icons icon_1">
+                                person_add_alt
+                            </span>
+                        </IgbAvatar>
+                    </div>
+                    <h3 slot="title">
+                        New Leads
+                    </h3>
+                    <h5 slot="subtitle">
+                </h5>
+                </IgbCardHeader>
+                <IgbCardContent>
+                    <div class="column-layout group_1">
+                        <h3 class="h3">
+                            3
+                        </h3>
+                        <div class="row-layout group_2">
+                            <p class="typography__subtitle-2 text">
+                                +23%
+                            </p>
+                            <p class="typography__body-2 content">
+                                from last month
+                            </p>
+                        </div>
+                    </div>
+                </IgbCardContent>
+            </IgbCard>
+            <IgbCard class="card" home-scope>
+                <IgbCardHeader>
+                    <div slot="thumbnail">
+                        <IgbAvatar Shape="AvatarShape.Circle" class="avatar_4" home-scope>
+                            <span class="material-icons icon_1">
+                                people_outline
+                            </span>
+                        </IgbAvatar>
+                    </div>
+                    <h3 slot="title">
+                        Total Customers
+                    </h3>
+                    <h5 slot="subtitle">
+                </h5>
+                </IgbCardHeader>
+                <IgbCardContent>
+                    <div class="column-layout group_1">
+                        <h3 class="h3">
+                            80
+                        </h3>
+                        <div class="row-layout group_2">
+                            <p class="typography__subtitle-2 text">
+                                +0.5%
+                            </p>
+                            <p class="typography__body-2 content">
+                                from last month
+                            </p>
+                        </div>
+                    </div>
+                </IgbCardContent>
+            </IgbCard>
+            <IgbCard class="card" home-scope>
+                <IgbCardHeader>
+                    <div slot="thumbnail">
+                        <IgbAvatar Shape="AvatarShape.Circle" class="avatar_5" home-scope>
+                            <span class="material-icons icon_1">
+                                support_agent
+                            </span>
+                        </IgbAvatar>
+                    </div>
+                    <h3 slot="title">
+                        Open Support Tickets
+                    </h3>
+                    <h5 slot="subtitle">
+                </h5>
+                </IgbCardHeader>
+                <IgbCardContent>
+                    <div class="column-layout group_1">
+                        <h3 class="h3">
+                            2
+                        </h3>
+                        <div class="row-layout group_2">
+                            <p class="typography__subtitle-2 text_1">
+                                -10%
+                            </p>
+                            <p class="typography__body-2 content">
+                                from last month
+                            </p>
+                        </div>
+                    </div>
+                </IgbCardContent>
+            </IgbCard>
+        </div>
+        <div class="row-layout sections">
+            <div class="column-layout group_3">
+                <div class="column-layout group_4">
+                    <div class="row-layout group_5">
+                        <p class="typography__body-1 content">
+                            Quarterly Performance
+                        </p>
+                        <IgbButton Variant="ButtonVariant.Flat" DisplayType="ButtonBaseType.Button" @onclick=@(() => NavigationManager.NavigateTo($"reports")) class="button" home-scope>
+                            <span>View all</span>
+                            <span class="material-icons">
+                                arrow_forward
+                            </span>
+                        </IgbButton>
+                    </div>
+                    <IgbCategoryChart DataSource=@_financialSales ChartType="CategoryChartType.Column" InitialGroups="Country" InitialSummaries="SUM(Sales)" GroupSorts="Country asc" ComputedPlotAreaMarginMode="ComputedPlotAreaMarginMode.Series" class="category-chart" home-scope></IgbCategoryChart>
+                </div>
+                <div class="row-layout group_6">
+                    <div class="column-layout group_7">
+                        <div @onclick=@(() => NavigationManager.NavigateTo($"customers")) class="row-layout group_5">
+                            <p class="typography__body-1 content">
+                                New Accounts
+                            </p>
+                            <IgbButton Variant="ButtonVariant.Flat" DisplayType="ButtonBaseType.Button" @onclick=@(() => NavigationManager.NavigateTo($"customers")) class="button" home-scope>
+                                <span>View all</span>
+                                <span class="material-icons">
+                                    arrow_forward
+                                </span>
+                            </IgbButton>
+                        </div>
+                        <div class="column-layout group_8">
+                            <IgbList class="list" home-scope>
+                                @foreach (var item in _northwindSwaggerCustomerDto)
+                                {
+                                    <IgbListItem selected=@(_listSelectedItem2 != null && _listSelectedItem2 == item) @onclick=@(() => _listSelectedItem2 = item)>
+                                        <IgbAvatar Shape="AvatarShape.Rounded" slot="start" class="avatar_1 avatar_1_1" home-scope>
+                                            <span class="material-icons icon_2">
+                                                business
+                                            </span>
+                                        </IgbAvatar>
+                                        <div>
+                                            <div class="row-layout group_9">
+                                                <div class="column-layout group_10">
+                                                    <a @onclick=@(() => NavigationManager.NavigateTo($"customer-details/{item.CustomerId}")) class="typography__body-2 hyperlink">
+                                                        @item.CompanyName
+                                                    </a>
+                                                    <p class="typography__caption text_2">
+                                                        @item.CustomerId
+                                                    </p>
+                                                </div>
+                                                <p class="typography__body-2 text_2">
+                                                    @item.Address?.Country
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </IgbListItem>
+                                }
+                            </IgbList>
+                        </div>
+                    </div>
+                    <div class="column-layout group_7">
+                        <div class="row-layout group_11">
+                            <p class="typography__body-1 content">
+                                Frequently contacted
+                            </p>
+                            <IgbButton Variant="ButtonVariant.Flat" DisplayType="ButtonBaseType.Button" @onclick=@(() => NavigationManager.NavigateTo($"customers")) class="button" home-scope>
+                                <span>View all</span>
+                                <span class="material-icons">
+                                    arrow_forward
+                                </span>
+                            </IgbButton>
+                        </div>
+                        <div class="column-layout group_8">
+                            <IgbList class="list" home-scope>
+                                @foreach (var item in _northwindSwaggerCustomerDto)
+                                {
+                                    <IgbListItem selected=@(_listSelectedItem3 != null && _listSelectedItem3 == item) @onclick=@(() => _listSelectedItem3 = item)>
+                                        <IgbAvatar Shape="AvatarShape.Rounded" slot="start" class="avatar_1 avatar_1_2" home-scope>
+                                            <span class="material-icons icon_3">
+                                                perm_identity
+                                            </span>
+                                        </IgbAvatar>
+                                        <div>
+                                            <div class="row-layout group_9">
+                                                <div class="column-layout group_10">
+                                                    <p class="typography__subtitle-2 text_3">
+                                                        @item.ContactName
+                                                    </p>
+                                                    <p class="typography__caption text_2">
+                                                        @item.CompanyName
+                                                    </p>
+                                                </div>
+                                                <IgbChip class="chip" home-scope>
+                                                    <span slot="prefix">
+                                                        <span class="material-icons icon_4">
+                                                            phone
+                                                        </span>
+                                                    </span>
+                                                    @item.Address?.Phone
+                                                </IgbChip>
+                                            </div>
+                                        </div>
+                                    </IgbListItem>
+                                }
+                            </IgbList>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-layout group_12">
+                <div class="column-layout group_4">
+                    <div class="row-layout group_5">
+                        <p class="typography__body-1 content">
+                            My Meetings
+                        </p>
+                        <IgbButton Variant="ButtonVariant.Flat" DisplayType="ButtonBaseType.Button" @onclick=@(() => NavigationManager.NavigateTo($"calendar")) class="button" home-scope>
+                            <span>View all</span>
+                            <span class="material-icons">
+                                arrow_forward
+                            </span>
+                        </IgbButton>
+                    </div>
+                    <IgbList class="list" home-scope>
+                        @foreach (var item in _cRMAppDataMeetingsTasks)
+                        {
+                            <IgbListItem selected=@(_listSelectedItem != null && _listSelectedItem == item) @onclick=@(() => _listSelectedItem = item)>
+                                <IgbAvatar Shape="AvatarShape.Rounded" slot="start" class="avatar_1 avatar_1_3" home-scope>
+                                    <span class="material-icons icon_5">
+                                        calendar_month
+                                    </span>
+                                </IgbAvatar>
+                                <div>
+                                    <div class="row-layout group_13">
+                                        <div class="column-layout group_10">
+                                            <div class="row-layout group_14">
+                                                <p class="typography__subtitle-2 text_3">
+                                                    Meeting with
+                                                </p>
+                                                <p class="typography__subtitle-2 text_3">
+                                                    @item.Contact
+                                                </p>
+                                            </div>
+                                            <div class="row-layout group_15">
+                                                <p class="typography__caption text_2">
+                                                    @item.MeetingDate
+                                                </p>
+                                                <p class="typography__caption text_2">
+                                                    -
+                                                </p>
+                                                <p class="typography__caption text_2">
+                                                    @item.MeetingTime
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <IgbChip class="chip_1" home-scope>
+                                            @item.MeetingType
+                                        </IgbChip>
+                                    </div>
+                                </div>
+                            </IgbListItem>
+                        }
+                    </IgbList>
+                </div>
+                <div class="column-layout group_4">
+                    <div class="row-layout group_16">
+                        <p class="typography__body-1 content">
+                            Today’s Tasks
+                        </p>
+                        <IgbButton Variant="ButtonVariant.Flat" DisplayType="ButtonBaseType.Button" @onclick=@(() => NavigationManager.NavigateTo($"tasks")) class="button" home-scope>
+                            <span>View all</span>
+                            <span class="material-icons">
+                                arrow_forward
+                            </span>
+                        </IgbButton>
+                    </div>
+                    <IgbList class="list" home-scope>
+                        @foreach (var item in _cRMAppDataMeetingsTasks)
+                        {
+                            <IgbListItem selected=@(_listSelectedItem1 != null && _listSelectedItem1 == item) @onclick=@(() => _listSelectedItem1 = item)>
+                                <IgbAvatar Shape="AvatarShape.Rounded" slot="start" class="avatar_1 avatar_1_4" home-scope>
+                                    <span class="material-icons icon_5">
+                                        task_alt
+                                    </span>
+                                </IgbAvatar>
+                                <div>
+                                    <div class="row-layout group_17">
+                                        <div class="column-layout group_10">
+                                            <div class="row-layout group_18">
+                                                <p class="typography__subtitle-2 text_3">
+                                                    @item.Task
+                                                </p>
+                                                <p class="typography__subtitle-2 text_3">
+                                                    -
+                                                </p>
+                                                <p class="typography__subtitle-2 text_3">
+                                                    @item.Company
+                                                </p>
+                                            </div>
+                                            <div class="row-layout group_19">
+                                                <p class="typography__caption text_2">
+                                                    Due by
+                                                </p>
+                                                <p class="typography__caption text_2">
+                                                    @item.DueDate
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <IgbChip class="chip_1" home-scope>
+                                            @item.TaskStatus
+                                        </IgbChip>
+                                    </div>
+                                </div>
+                            </IgbListItem>
+                        }
+                    </IgbList>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private MeetingsTasksType _listSelectedItem;
+    private MeetingsTasksType _listSelectedItem1;
+    private CustomerDto _listSelectedItem2;
+    private CustomerDto _listSelectedItem3;
+    private List<SalesType> _financialSales = new();
+    private List<CustomerDto> _northwindSwaggerCustomerDto = new();
+    private List<MeetingsTasksType> _cRMAppDataMeetingsTasks = new();
+    private bool _isComponentActive = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _financialSales = await FinancialService.GetSales();
+        _northwindSwaggerCustomerDto = await NorthwindSwaggerService.GetCustomerDtoList();
+        _cRMAppDataMeetingsTasks = await CRMAppDataService.GetMeetingsTasksList();
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool isFirstRender)
+    {
+        if (isFirstRender)
+        {
+            _isComponentActive = true;
+            NavigationManager.LocationChanged += OnLocationChanged;
+            EnsureDefaultRoute();
+        }
+        await base.OnAfterRenderAsync(isFirstRender);
+    }
+
+    public void Dispose()
+    {
+        _isComponentActive = false;
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+    protected void OnLocationChanged(object sender, object e)
+    {
+        if (_isComponentActive)
+        {
+            EnsureDefaultRoute();
+        }
+    }
+
+    protected void EnsureDefaultRoute()
+    {
+        var defaultPath = $"home";
+        var currentRoute = NavigationManager.ToBaseRelativePath(NavigationManager.Uri).Split('?')[0];
+        if (!string.Equals(defaultPath, currentRoute, StringComparison.OrdinalIgnoreCase))
+        {
+            NavigationManager.NavigateTo(defaultPath, replace: true);
+        }
+    }
+}

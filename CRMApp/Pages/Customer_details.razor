@@ -1,0 +1,550 @@
+@layout MainLayout
+@page "/customer-details/{rCustomerID}"
+
+@using NorthwindSwagger
+@using Models.NorthwindSwagger
+@using System.Reactive.Linq
+@using System.Reactive.Subjects
+@inject IJSRuntime JS
+@inject NavigationManager NavigationManager
+@inject INorthwindSwaggerService NorthwindSwaggerService
+@implements IDisposable
+
+<div class="column-layout customer-details-container">
+    <div class="row-layout page-container">
+        <div class="column-layout customer_overview">
+            <div class="column-layout page-header">
+                <IgbButton Variant="ButtonVariant.Flat" DisplayType="ButtonBaseType.Button" @onclick=@(() => NavigationManager.NavigateTo($"customers")) class="button" customer_details-scope>
+                    <span class="material-icons">
+                        arrow_back
+                    </span>
+                    <span>Customers</span>
+                </IgbButton>
+                <div class="row-layout account-header">
+                    <div class="row-layout page-title">
+                        <span class="material-icons icon">
+                            people_outline
+                        </span>
+                        <div class="row-layout group">
+                            <h5 class="content">
+                                @SelectedCustomer1?.CompanyName
+                            </h5>
+                            <p class="typography__body-2 text">
+                                @SelectedCustomer1?.CustomerId
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row-layout group_1">
+                        <div class="column-layout group_2">
+                            <p class="typography__subtitle-2 content">
+                                Primary Contact
+                            </p>
+                            <p class="typography__body-2 text">
+                                @SelectedCustomer1?.ContactName
+                            </p>
+                            <p class="typography__body-2 text">
+                                @SelectedCustomer1?.ContactTitle
+                            </p>
+                        </div>
+                        <div class="column-layout group_2">
+                            <p class="typography__subtitle-2 content">
+                                Billing Address
+                            </p>
+                            <p class="typography__body-2 text">
+                                @SelectedCustomer1?.Address?.Street
+                            </p>
+                            <div class="column-layout group_3">
+                                <div class="row-layout group_4">
+                                    <p class="typography__body-2 text">
+                                        @SelectedCustomer1?.Address?.City
+                                    </p>
+                                    <p class="typography__body-2 text">
+                                        @SelectedCustomer1?.Address?.Country
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column-layout group_2">
+                            <p class="typography__subtitle-2 content">
+                                Phone
+                            </p>
+                            <p class="typography__body-2 text">
+                                @SelectedCustomer1?.Address?.Phone
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-layout customer_details">
+                <IgbTabs class="customer-details" customer_details-scope>
+                    <IgbTab selected=true class="tab-item" customer_details-scope>
+                        <span slot="label">Orders</span>
+                        <div class="column-layout tab-item-content">
+                            <IgbGrid Data=@_northwindSwaggerOrderDto PrimaryKey="OrderId" RowSelection="GridSelectionMode.Single" AllowFiltering=true FilterMode="FilterMode.ExcelStyleFilter" RowSelectionChanging=@(e => _selectedOrder = e.Detail.NewSelection.FirstOrDefault() as OrderDto) class="ig-typography grid" customer_details-scope>
+                                <IgbColumn Field="OrderId" DataType="GridColumnDataType.Number" Header="orderId" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="ShipVia" DataType="GridColumnDataType.String" Header="shipVia" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="ShipperId" DataType="GridColumnDataType.Number" Header="shipperId" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="OrderDate" DataType="GridColumnDataType.Date" Header="orderDate" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="RequiredDate" DataType="GridColumnDataType.Date" Header="requiredDate" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="Freight" DataType="GridColumnDataType.Number" Header="freight" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="Completed" DataType="GridColumnDataType.Boolean" Header="completed" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="ShipAddress.Street" DataType="GridColumnDataType.String" Header="shipAddress street" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="ShipAddress.City" DataType="GridColumnDataType.String" Header="shipAddress city" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="ShipAddress.Region" DataType="GridColumnDataType.String" Header="shipAddress region" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="ShipAddress.PostalCode" DataType="GridColumnDataType.String" Header="shipAddress postalCode" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="ShipAddress.Country" DataType="GridColumnDataType.String" Header="shipAddress country" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                                <IgbColumn Field="ShipAddress.Phone" DataType="GridColumnDataType.String" Header="shipAddress phone" Groupable=true Sortable=true Selectable=false></IgbColumn>
+                            </IgbGrid>
+                            <div class="column-layout group_5">
+                                <div class="row-layout group_6">
+                                    <p class="typography__body-2 text_1">
+                                        Order:
+                                    </p>
+                                    <p class="typography__body-2 text_2">
+                                        @_selectedOrder?.OrderId
+                                    </p>
+                                </div>
+                                <IgbGrid Data=@_northwindSwaggerProductDto PrimaryKey="ProductId" EmptyGridTemplateScript="gridEmptyGridTemplateScript" AllowFiltering=true FilterMode="FilterMode.ExcelStyleFilter" class="ig-typography grid" customer_details-scope>
+                                    <IgbColumn Field="ProductId" DataType="GridColumnDataType.Number" Header="productId" Sortable=true Selectable=false></IgbColumn>
+                                    <IgbColumn Field="ProductName" DataType="GridColumnDataType.String" Header="productName" Sortable=true Selectable=false></IgbColumn>
+                                    <IgbColumn Field="SupplierId" DataType="GridColumnDataType.Number" Header="supplierId" Sortable=true Selectable=false></IgbColumn>
+                                    <IgbColumn Field="CategoryId" DataType="GridColumnDataType.Number" Header="categoryId" Sortable=true Selectable=false></IgbColumn>
+                                    <IgbColumn Field="QuantityPerUnit" DataType="GridColumnDataType.String" Header="quantityPerUnit" Sortable=true Selectable=false></IgbColumn>
+                                    <IgbColumn Field="UnitPrice" DataType="GridColumnDataType.Number" Header="unitPrice" Sortable=true Selectable=false></IgbColumn>
+                                    <IgbColumn Field="UnitsInStock" DataType="GridColumnDataType.Number" Header="unitsInStock" Sortable=true Selectable=false></IgbColumn>
+                                    <IgbColumn Field="UnitsOnOrder" DataType="GridColumnDataType.Number" Header="unitsOnOrder" Sortable=true Selectable=false></IgbColumn>
+                                    <IgbColumn Field="ReorderLevel" DataType="GridColumnDataType.Number" Header="reorderLevel" Sortable=true Selectable=false></IgbColumn>
+                                    <IgbColumn Field="Discontinued" DataType="GridColumnDataType.Boolean" Header="discontinued" Sortable=true Selectable=false></IgbColumn>
+                                </IgbGrid>
+                            </div>
+                        </div>
+                    </IgbTab>
+                    <IgbTab class="tab-item" customer_details-scope>
+                        <span slot="label">Related</span>
+                        <div class="column-layout tab-item-content_1">
+                            <div class="row-layout buttons">
+                                <IgbButton Variant="ButtonVariant.Outlined" DisplayType="ButtonBaseType.Button" class="button_1" customer_details-scope>
+                                    <span class="material-icons">
+                                        person_add
+                                    </span>
+                                    <span>Contact</span>
+                                </IgbButton>
+                                <IgbButton Variant="ButtonVariant.Outlined" DisplayType="ButtonBaseType.Button" class="button_1" customer_details-scope>
+                                    <span class="material-icons">
+                                        star_border
+                                    </span>
+                                    <span>New Opportunity</span>
+                                </IgbButton>
+                                <IgbButton Variant="ButtonVariant.Outlined" DisplayType="ButtonBaseType.Button" class="button_1" customer_details-scope>
+                                    <span class="material-icons">
+                                        error_outline
+                                    </span>
+                                    <span>New Case</span>
+                                </IgbButton>
+                                <IgbButton Variant="ButtonVariant.Outlined" DisplayType="ButtonBaseType.Button" class="button_1" customer_details-scope>
+                                    <span class="material-icons">
+                                        note_add
+                                    </span>
+                                    <span>Add note</span>
+                                </IgbButton>
+                                <IgbButton Variant="ButtonVariant.Outlined" DisplayType="ButtonBaseType.Button" class="button_1" customer_details-scope>
+                                    <span class="material-icons">
+                                        file_copy
+                                    </span>
+                                    <span>Add files</span>
+                                </IgbButton>
+                            </div>
+                            <IgbAccordion SingleExpand=true class="accordion" customer_details-scope>
+                                <IgbExpansionPanel Open=true IndicatorPosition="ExpansionPanelIndicatorPosition.End">
+                                    <div class="column-layout group_7">
+                                        <div class="row-layout group_8">
+                                            <IgbAvatar Initials="jl" Shape="AvatarShape.Circle" class="avatar avatar_1" customer_details-scope></IgbAvatar>
+                                            <a target="_blank" class="typography__body-2 hyperlink">
+                                                Janine Labrune
+                                            </a>
+                                        </div>
+                                        <div class="column-layout group_9">
+                                            <div class="row-layout group_10">
+                                                <p class="typography__subtitle-2 text_3">
+                                                    Account Name:
+                                                </p>
+                                                <p class="typography__body-2 text">
+                                                    Thomas Hardy
+                                                </p>
+                                            </div>
+                                            <div class="row-layout group_10">
+                                                <p class="typography__subtitle-2 text_3">
+                                                    Title:
+                                                </p>
+                                                <p class="typography__body-2 text">
+                                                    Owner
+                                                </p>
+                                            </div>
+                                            <div class="row-layout group_11">
+                                                <p class="typography__subtitle-2 text_3">
+                                                    Direct:
+                                                </p>
+                                                <IgbCheckbox Checked=@_checked Change=@(e => _checked = e.Detail.Checked) class="checkbox" customer_details-scope></IgbCheckbox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span slot="title">Related Contacts (1)</span>
+                                </IgbExpansionPanel>
+                                <IgbExpansionPanel IndicatorPosition="ExpansionPanelIndicatorPosition.End">
+                                    <div class="column-layout group_7">
+                                        <div class="row-layout group_8">
+                                            <IgbAvatar Shape="AvatarShape.Rounded" class="avatar avatar_2" customer_details-scope>
+                                                <span class="material-icons icon_1">
+                                                    business
+                                                </span>
+                                            </IgbAvatar>
+                                            <a target="_blank" class="typography__body-2 hyperlink_1">
+                                                Around The Horn
+                                            </a>
+                                        </div>
+                                        <div class="column-layout group_9">
+                                            <div class="row-layout group_10">
+                                                <p class="typography__subtitle-2 text_3">
+                                                    Stage:
+                                                </p>
+                                                <p class="typography__body-2 text">
+                                                    Qualification
+                                                </p>
+                                            </div>
+                                            <div class="row-layout group_10">
+                                                <p class="typography__subtitle-2 text_3">
+                                                    Amount:
+                                                </p>
+                                                <p class="typography__body-2 text">
+                                                    Owner
+                                                </p>
+                                            </div>
+                                            <div class="row-layout group_10">
+                                                <p class="typography__subtitle-2 text_3">
+                                                    Close Date:
+                                                </p>
+                                                <p class="typography__body-2 text">
+                                                    9/12/2022
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span slot="title">Opportunities (1)</span>
+                                </IgbExpansionPanel>
+                                <IgbExpansionPanel IndicatorPosition="ExpansionPanelIndicatorPosition.End">
+                                    <IgbList class="list" customer_details-scope>
+                                        <IgbListItem selected=@(_listSelectedItem5 != null && _listSelectedItem5 == "0") @onclick=@(() => _listSelectedItem5 = "0")>
+                                            <IgbAvatar slot="start" Shape="AvatarShape.Circle" class="avatar avatar_3" customer_details-scope>
+                                                <span class="material-icons icon_2">
+                                                    insert_drive_file
+                                                </span>
+                                            </IgbAvatar>
+                                            <div>
+                                                <a target="_blank" class="typography__body-2 hyperlink_2">
+                                                    Around-The-Horn-Contract-2022.docx
+                                                </a>
+                                            </div>
+                                        </IgbListItem>
+                                        <IgbListItem selected=@(_listSelectedItem5 != null && _listSelectedItem5 == "1") @onclick=@(() => _listSelectedItem5 = "1")>
+                                            <IgbAvatar slot="start" Shape="AvatarShape.Circle" class="avatar avatar_4" customer_details-scope>
+                                                <span class="material-icons icon_2">
+                                                    insert_drive_file
+                                                </span>
+                                            </IgbAvatar>
+                                            <div>
+                                                <a target="_blank" class="typography__body-2 hyperlink_2">
+                                                    Around-The-Horn-Contract-2021.docx
+                                                </a>
+                                            </div>
+                                        </IgbListItem>
+                                    </IgbList>
+                                    <span slot="title">Contracts (2)</span>
+                                </IgbExpansionPanel>
+                                <IgbExpansionPanel IndicatorPosition="ExpansionPanelIndicatorPosition.End">
+                                    <p class="typography__body-2 text_4">
+                                        No cases filed.
+                                    </p>
+                                    <span slot="title">Cases (0)</span>
+                                </IgbExpansionPanel>
+                                <IgbExpansionPanel IndicatorPosition="ExpansionPanelIndicatorPosition.End">
+                                    <p class="typography__body-2 text_4">
+                                        No notes added.
+                                    </p>
+                                    <span slot="title">Notes (0)</span>
+                                </IgbExpansionPanel>
+                                <IgbExpansionPanel IndicatorPosition="ExpansionPanelIndicatorPosition.End">
+                                    <p class="typography__body-2 text_4">
+                                        No files uploaded
+                                    </p>
+                                    <span slot="title">Files (0)</span>
+                                </IgbExpansionPanel>
+                            </IgbAccordion>
+                        </div>
+                    </IgbTab>
+                    <IgbTab class="tab-item" customer_details-scope>
+                        <span slot="label">Details</span>
+                        <div class="row-layout tab-item-content">
+                            <div class="column-layout demo-content">
+                                <img src="assets/start-building-dark.svg" alt="" class="image" />
+                                <p class="typography__body-2 text_5">
+                                    Remove the "demo-content" container, and add your own content.
+                                </p>
+                            </div>
+                        </div>
+                    </IgbTab>
+                    <IgbTab class="tab-item" customer_details-scope>
+                        <span slot="label">News</span>
+                        <div class="row-layout tab-item-content">
+                            <div class="column-layout demo-content-1">
+                                <img src="assets/start-building-dark.svg" alt="" class="image" />
+                                <p class="typography__body-2 text_5">
+                                    Remove the "demo-content" container, and add your own content.
+                                </p>
+                            </div>
+                        </div>
+                    </IgbTab>
+                </IgbTabs>
+            </div>
+        </div>
+        <div class="column-layout customer-activity-conversations">
+            <IgbTabs class="tabs" customer_details-scope>
+                <IgbTab selected=true class="tab-item" customer_details-scope>
+                    <span slot="label">Activity</span>
+                    <div class="column-layout tab-item-content">
+                        <div class="row-layout buttons-1">
+                            <IgbButton Variant="ButtonVariant.Outlined" DisplayType="ButtonBaseType.Button" class="button_1" customer_details-scope>
+                                <span class="material-icons">
+                                    calendar_today
+                                </span>
+                                <span>New Meeting</span>
+                            </IgbButton>
+                            <IgbButton Variant="ButtonVariant.Outlined" DisplayType="ButtonBaseType.Button" class="button_1" customer_details-scope>
+                                <span class="material-icons">
+                                    assignment
+                                </span>
+                                <span>New task</span>
+                            </IgbButton>
+                            <IgbButton Variant="ButtonVariant.Outlined" DisplayType="ButtonBaseType.Button" class="button_1" customer_details-scope>
+                                <span class="material-icons">
+                                    call
+                                </span>
+                                <span>Log a call</span>
+                            </IgbButton>
+                        </div>
+                        <IgbAccordion SingleExpand=true class="accordion" customer_details-scope>
+                            <IgbExpansionPanel IndicatorPosition="ExpansionPanelIndicatorPosition.End">
+                                <IgbList class="list" customer_details-scope>
+                                    <IgbListItem selected=@(_listSelectedItem4 != null && _listSelectedItem4 == "0") @onclick=@(() => _listSelectedItem4 = "0")>
+                                        <IgbAvatar slot="start" class="avatar avatar_5" customer_details-scope>
+                                            <span class="material-icons icon_3">
+                                                calendar_month
+                                            </span>
+                                        </IgbAvatar>
+                                        <div>
+                                            <div class="column-layout group_12">
+                                                <div class="row-layout group_13">
+                                                    <p class="typography__subtitle-2 text_6">
+                                                        Project Intro
+                                                    </p>
+                                                    <IgbChip class="chip" customer_details-scope>
+                                                        Zoom Meeting
+                                                    </IgbChip>
+                                                </div>
+                                                <div class="row-layout group_14">
+                                                    <p class="typography__caption text_4">
+                                                        11/1/2022
+                                                    </p>
+                                                    <p class="typography__caption text_4">
+                                                        -
+                                                    </p>
+                                                    <p class="typography__caption text_4">
+                                                        10am
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </IgbListItem>
+                                    <IgbListItem selected=@(_listSelectedItem4 != null && _listSelectedItem4 == "1") @onclick=@(() => _listSelectedItem4 = "1")>
+                                        <IgbAvatar slot="start" class="avatar avatar_6" customer_details-scope>
+                                            <span class="material-icons icon_3">
+                                                calendar_month
+                                            </span>
+                                        </IgbAvatar>
+                                        <div>
+                                            <div class="column-layout group_15">
+                                                <div class="row-layout group_13">
+                                                    <p class="typography__subtitle-2 text_6">
+                                                        Sync Meeting
+                                                    </p>
+                                                    <IgbChip class="chip" customer_details-scope>
+                                                        On Site Meeting
+                                                    </IgbChip>
+                                                </div>
+                                                <div class="row-layout group_14">
+                                                    <p class="typography__caption text_4">
+                                                        11/7/2022
+                                                    </p>
+                                                    <p class="typography__caption text_4">
+                                                        -
+                                                    </p>
+                                                    <p class="typography__caption text_4">
+                                                        2pm
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </IgbListItem>
+                                    <IgbListItem selected=@(_listSelectedItem4 != null && _listSelectedItem4 == "2") @onclick=@(() => _listSelectedItem4 = "2")>
+                                        <IgbAvatar slot="start" class="avatar avatar_7" customer_details-scope>
+                                            <span class="material-icons icon_3">
+                                                calendar_month
+                                            </span>
+                                        </IgbAvatar>
+                                        <div>
+                                            <div class="column-layout group_15">
+                                                <div class="row-layout group_13">
+                                                    <p class="typography__subtitle-2 text_6">
+                                                        Wrap Up Meeting
+                                                    </p>
+                                                    <IgbChip class="chip" customer_details-scope>
+                                                        Phone call
+                                                    </IgbChip>
+                                                </div>
+                                                <div class="row-layout group_14">
+                                                    <p class="typography__caption text_4">
+                                                        11/14/2022
+                                                    </p>
+                                                    <p class="typography__caption text_4">
+                                                        -
+                                                    </p>
+                                                    <p class="typography__caption text_4">
+                                                        4pm
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </IgbListItem>
+                                </IgbList>
+                                <span slot="title">Upcoming Events (3)</span>
+                            </IgbExpansionPanel>
+                            <IgbExpansionPanel IndicatorPosition="ExpansionPanelIndicatorPosition.End">
+                                <p class="typography__body-2 text_4">
+                                    No tasks added.
+                                </p>
+                                <span slot="title">Tasks (0)</span>
+                            </IgbExpansionPanel>
+                            <IgbExpansionPanel IndicatorPosition="ExpansionPanelIndicatorPosition.End">
+                                <p class="typography__body-2 text_4">
+                                    No call logged.
+                                </p>
+                                <span slot="title">Call Logs (0)</span>
+                            </IgbExpansionPanel>
+                        </IgbAccordion>
+                    </div>
+                </IgbTab>
+                <IgbTab class="tab-item" customer_details-scope>
+                    <span slot="label">Conversations</span>
+                    <div class="row-layout tab-item-content">
+                        <div class="column-layout demo-content-1">
+                            <img src="assets/start-building-dark.svg" alt="" class="image" />
+                            <p class="typography__body-2 text_5">
+                                Remove the "demo-content" container, and add your own content.
+                            </p>
+                        </div>
+                    </div>
+                </IgbTab>
+            </IgbTabs>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [CascadingParameter]
+    private RouteData RouteData { get; set; }
+    private CustomerDto _selectedCustomer1;
+    private CustomerDto SelectedCustomer1
+    {
+        get => _selectedCustomer1;
+        set
+        {
+            _selectedCustomer1 = value;
+            _selectedOrder = default;
+        }
+    }
+
+    private Subject<object> selectedCustomer1Subject = new Subject<object>();
+
+    private Subject<object> destroy = new();
+    private string _rCustomerID;
+
+    [Parameter]
+    public string RCustomerID
+    {
+        get => _rCustomerID;
+        set
+        {
+            _rCustomerID = value;
+            selectedCustomer1Subject.OnNext(value);
+            _northwindSwaggerOrderDtoSubject.OnNext(value);
+        }
+    }
+
+    private OrderDto __selectedOrder;
+    public OrderDto _selectedOrder
+    {
+        get => __selectedOrder;
+        set
+        {
+            __selectedOrder = value;
+            _northwindSwaggerProductDtoSubject.OnNext(value);
+        }
+    }
+
+    private string _listSelectedItem4;
+    private string _listSelectedItem5;
+    private bool _checked = false;
+    private IJSObjectReference module;
+    private List<OrderDto> _northwindSwaggerOrderDto = new();
+    private Subject<object> _northwindSwaggerOrderDtoSubject = new Subject<object>();
+
+    private List<ProductDto> _northwindSwaggerProductDto = new();
+    private Subject<object> _northwindSwaggerProductDtoSubject = new Subject<object>();
+
+
+    protected override void OnParametersSet()
+    {
+        RouteData.RouteValues.TryGetValue("RCustomerID", out var rCustomerID);
+        RCustomerID = rCustomerID != null ? rCustomerID.ToString() : "AROUT";
+    }
+
+    public void Dispose()
+    {
+        this.destroy.OnNext(null);
+        this.destroy.Dispose();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        module = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/Customer_details.razor.js");
+        SelectedCustomer1 = await NorthwindSwaggerService.GetCustomerDto(RCustomerID);
+        selectedCustomer1Subject.TakeUntil(this.destroy).Subscribe(async _ =>
+        {
+            SelectedCustomer1 = await NorthwindSwaggerService.GetCustomerDto(RCustomerID);
+            await InvokeAsync(StateHasChanged);
+        });
+        _northwindSwaggerOrderDto = await NorthwindSwaggerService.GetOrderDtoList(RCustomerID);
+        _northwindSwaggerOrderDtoSubject.TakeUntil(this.destroy).Subscribe(async _ =>
+        {
+            _northwindSwaggerOrderDto = await NorthwindSwaggerService.GetOrderDtoList(RCustomerID);
+            await InvokeAsync(StateHasChanged);
+        });
+        _northwindSwaggerProductDto = await NorthwindSwaggerService.GetProductDtoList(_selectedOrder?.OrderId);
+        _northwindSwaggerProductDtoSubject.TakeUntil(this.destroy).Subscribe(async _ =>
+        {
+            _northwindSwaggerProductDto = await NorthwindSwaggerService.GetProductDtoList(_selectedOrder?.OrderId);
+            await InvokeAsync(StateHasChanged);
+        });
+        await base.OnInitializedAsync();
+    }
+}
