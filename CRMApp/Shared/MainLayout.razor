@@ -1,0 +1,192 @@
+@inherits LayoutComponentBase
+
+@inject NavigationManager NavigationManager
+
+<div class="column-layout master-view-container">
+    <IgbNavbar class="navbar" master_view-scope>
+        <IgbIconButton Variant="IconButtonVariant.Flat" slot="start" @onclick=@(e => _navDrawer!.ToggleAsync()) class="icon-button" master_view-scope>
+            <span class="material-icons icon">
+                menu
+            </span>
+        </IgbIconButton>
+        <div class="row-layout group">
+            <h6 class="content">
+                MyCRM
+            </h6>
+            <p class="typography__body-2 content"></p>
+        </div>
+        <IgbIconButton Variant="IconButtonVariant.Flat" slot="end" class="icon-button_1" master_view-scope>
+            <span class="material-icons icon_1">
+                search
+            </span>
+        </IgbIconButton>
+        <IgbIconButton Variant="IconButtonVariant.Flat" slot="end" class="icon-button_2" master_view-scope>
+            <span class="material-icons icon_1">
+                settings
+            </span>
+        </IgbIconButton>
+        <IgbIconButton Variant="IconButtonVariant.Flat" slot="end" class="icon-button_3" master_view-scope>
+            <span class="material-icons icon_1">
+                notifications_none
+            </span>
+        </IgbIconButton>
+        <IgbAvatar Src="assets/Avatar5.png" slot="end" Shape="AvatarShape.Circle" @onclick=@(e => _userDropDown!.ToggleAsync(_avatar)) @ref=_avatar class="avatar" master_view-scope></IgbAvatar>
+    </IgbNavbar>
+    <div class="row-layout group_1">
+        <IgbNavDrawer Position="NavDrawerPosition.Relative" @ref=_navDrawer class="nav-drawer" master_view-scope>
+            <div slot="mini">
+                <IgbNavDrawerItem Active="@IsActive("home")" @onclick=@(() => NavigationManager.NavigateTo($"home"))>
+                    <span slot="icon">
+                        <span class="material-icons icon_2">
+                            dashboard
+                        </span>
+                    </span>
+                </IgbNavDrawerItem>
+                <IgbNavDrawerItem Active="@IsActive("customers")" @onclick=@(() => NavigationManager.NavigateTo($"customers"))>
+                    <span slot="icon">
+                        <span class="material-icons icon_2">
+                            people_outline
+                        </span>
+                    </span>
+                </IgbNavDrawerItem>
+                <IgbNavDrawerItem Active="@IsActive("deals")" @onclick=@(() => NavigationManager.NavigateTo($"deals"))>
+                    <span slot="icon">
+                        <span class="material-icons icon_2">
+                            work_outline
+                        </span>
+                    </span>
+                </IgbNavDrawerItem>
+                <IgbNavDrawerItem Active="@IsActive("reports")" @onclick=@(() => NavigationManager.NavigateTo($"reports"))>
+                    <span slot="icon">
+                        <span class="material-icons icon_2">
+                            bar_chart
+                        </span>
+                    </span>
+                </IgbNavDrawerItem>
+                <IgbNavDrawerItem Active="@IsActive("support")" @onclick=@(() => NavigationManager.NavigateTo($"support"))>
+                    <span slot="icon">
+                        <span class="material-icons icon_2">
+                            help_outline
+                        </span>
+                    </span>
+                </IgbNavDrawerItem>
+                <IgbNavDrawerItem Active="@IsActive("calendar")" @onclick=@(() => NavigationManager.NavigateTo($"calendar"))>
+                    <span slot="icon">
+                        <span class="material-icons icon_2">
+                            calendar_month
+                        </span>
+                    </span>
+                </IgbNavDrawerItem>
+                <IgbNavDrawerItem Active="@IsActive("tasks")" @onclick=@(() => NavigationManager.NavigateTo($"tasks"))>
+                    <span slot="icon">
+                        <span class="material-icons icon_2">
+                            task_alt
+                        </span>
+                    </span>
+                </IgbNavDrawerItem>
+            </div>
+            <IgbNavDrawerItem Active="@IsActive("home")" @onclick=@(() => NavigationManager.NavigateTo($"home"))>
+                <span slot="icon">
+                    <span class="material-icons icon_2">
+                        dashboard
+                    </span>
+                </span>
+                <div slot="content">Dashboard</div>
+            </IgbNavDrawerItem>
+            <IgbNavDrawerItem Active="@IsActive("customers")" @onclick=@(() => NavigationManager.NavigateTo($"customers"))>
+                <span slot="icon">
+                    <span class="material-icons icon_2">
+                        people_outline
+                    </span>
+                </span>
+                <div slot="content">Customers</div>
+            </IgbNavDrawerItem>
+            <IgbNavDrawerItem Active="@IsActive("deals")" @onclick=@(() => NavigationManager.NavigateTo($"deals"))>
+                <span slot="icon">
+                    <span class="material-icons icon_2">
+                        work_outline
+                    </span>
+                </span>
+                <div slot="content">Deals</div>
+            </IgbNavDrawerItem>
+            <IgbNavDrawerItem Active="@IsActive("reports")" @onclick=@(() => NavigationManager.NavigateTo($"reports"))>
+                <span slot="icon">
+                    <span class="material-icons icon_2">
+                        bar_chart
+                    </span>
+                </span>
+                <div slot="content">Reports</div>
+            </IgbNavDrawerItem>
+            <IgbNavDrawerItem Active="@IsActive("support")" @onclick=@(() => NavigationManager.NavigateTo($"support"))>
+                <span slot="icon">
+                    <span class="material-icons icon_2">
+                        help_outline
+                    </span>
+                </span>
+                <div slot="content">Support</div>
+            </IgbNavDrawerItem>
+            <IgbNavDrawerItem Active="@IsActive("calendar")" @onclick=@(() => NavigationManager.NavigateTo($"calendar"))>
+                <span slot="icon">
+                    <span class="material-icons icon_2">
+                        calendar_month
+                    </span>
+                </span>
+                <div slot="content">Calendar</div>
+            </IgbNavDrawerItem>
+            <IgbNavDrawerItem Active="@IsActive("tasks")" @onclick=@(() => NavigationManager.NavigateTo($"tasks"))>
+                <span slot="icon">
+                    <span class="material-icons icon_2">
+                        task_alt
+                    </span>
+                </span>
+                <div slot="content">Tasks</div>
+            </IgbNavDrawerItem>
+        </IgbNavDrawer>
+        <div class="view-container">
+            @Body
+        </div>
+    </div>
+    <IgbDropdown @ref=_userDropDown class="user-drop-down" master_view-scope>
+        <IgbDropdownHeader>
+            Hi, firstName
+        </IgbDropdownHeader>
+        <IgbDropdownItem>
+            Profile
+        </IgbDropdownItem>
+        <IgbDropdownItem>
+            Settings
+        </IgbDropdownItem>
+        <IgbDropdownItem>
+            Sign out
+        </IgbDropdownItem>
+    </IgbDropdown>
+</div>
+
+@code {
+    private IgbAvatar? _avatar;
+    private IgbNavDrawer? _navDrawer;
+    private IgbDropdown? _userDropDown;
+
+    public bool IsActive(string targetPath)
+    {
+        if (string.IsNullOrWhiteSpace(targetPath))
+            return false;
+
+        var baseUri = new Uri(NavigationManager.BaseUri);
+        var currentUri = new Uri(NavigationManager.Uri);
+        var targetUri = new Uri(baseUri, targetPath);
+
+        // Normalize paths (strip trailing slashes)
+        var currentPath = currentUri.AbsolutePath.TrimEnd('/');
+        var targetPathNormalized = targetUri.AbsolutePath.TrimEnd('/');
+
+        // Use Uri.Compare for comparison
+        var comparison = Uri.Compare(currentUri, targetUri, UriComponents.Path, UriFormat.Unescaped, StringComparison.OrdinalIgnoreCase);
+
+        // Exact match
+        if (comparison == 0)
+            return true;
+
+        return false;
+    }
+}

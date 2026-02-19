@@ -1,0 +1,617 @@
+@layout MainLayout
+@page "/deals"
+
+
+<div class="row-layout deals-container">
+    <div class="column-layout page-container">
+        <div class="column-layout page-header">
+            <div class="row-layout header-1">
+                <div class="row-layout page-title-1">
+                    <span class="material-icons icon">
+                        work_outline
+                    </span>
+                    <h5 class="content">
+                        Deals
+                    </h5>
+                </div>
+                <IgbButton DisplayType="ButtonBaseType.Button" @onclick=@(e => _newDealDialog!.ToggleAsync()) class="button" deals-scope>
+                    <span class="material-icons">
+                        add
+                    </span>
+                    <span>New Deal</span>
+                </IgbButton>
+            </div>
+        </div>
+        <div class="row-layout metrics">
+            <IgbCard class="card" deals-scope>
+                <IgbCardHeader>
+                    <div slot="thumbnail">
+                        <IgbAvatar Shape="AvatarShape.Circle" class="avatar" deals-scope>
+                            <span class="material-icons icon_1">
+                                handshake
+                            </span>
+                        </IgbAvatar>
+                    </div>
+                    <h3 slot="title">
+                        Total Deals
+                    </h3>
+                    <h5 slot="subtitle">
+                </h5>
+                </IgbCardHeader>
+                <IgbCardContent>
+                    <div class="column-layout group">
+                        <h3 class="h3">
+                            11
+                        </h3>
+                        <div class="row-layout group_1">
+                            <p class="typography__subtitle-2 text">
+                                +5%
+                            </p>
+                            <p class="typography__body-2 content">
+                                from last month
+                            </p>
+                        </div>
+                    </div>
+                </IgbCardContent>
+            </IgbCard>
+            <IgbCard class="card" deals-scope>
+                <IgbCardHeader>
+                    <div slot="thumbnail">
+                        <IgbAvatar Shape="AvatarShape.Circle" class="avatar_2" deals-scope>
+                            <span class="material-icons icon_1">
+                                access_time
+                            </span>
+                        </IgbAvatar>
+                    </div>
+                    <h3 slot="title">
+                        Open Deals
+                    </h3>
+                    <h5 slot="subtitle">
+                </h5>
+                </IgbCardHeader>
+                <IgbCardContent>
+                    <div class="column-layout group">
+                        <h3 class="h3">
+                            8
+                        </h3>
+                        <div class="row-layout group_1">
+                            <p class="typography__subtitle-2 text">
+                                +3%
+                            </p>
+                            <p class="typography__body-2 content">
+                                from last month
+                            </p>
+                        </div>
+                    </div>
+                </IgbCardContent>
+            </IgbCard>
+            <IgbCard class="card" deals-scope>
+                <IgbCardHeader>
+                    <div slot="thumbnail">
+                        <IgbAvatar Shape="AvatarShape.Circle" class="avatar_3" deals-scope>
+                            <span class="material-icons icon_1">
+                                attach_money
+                            </span>
+                        </IgbAvatar>
+                    </div>
+                    <h3 slot="title">
+                        Total Open Value
+                    </h3>
+                    <h5 slot="subtitle">
+                </h5>
+                </IgbCardHeader>
+                <IgbCardContent>
+                    <div class="column-layout group">
+                        <h3 class="h3">
+                            $75,000
+                        </h3>
+                        <div class="row-layout group_1">
+                            <p class="typography__subtitle-2 text">
+                                +0.5%
+                            </p>
+                            <p class="typography__body-2 content">
+                                from last month
+                            </p>
+                        </div>
+                    </div>
+                </IgbCardContent>
+            </IgbCard>
+            <IgbCard class="card" deals-scope>
+                <IgbCardHeader>
+                    <div slot="thumbnail">
+                        <IgbAvatar Shape="AvatarShape.Circle" class="avatar_4" deals-scope>
+                            <span class="material-icons icon_1">
+                                percent
+                            </span>
+                        </IgbAvatar>
+                    </div>
+                    <h3 slot="title">
+                        Deal Win Rate
+                    </h3>
+                    <h5 slot="subtitle">
+                </h5>
+                </IgbCardHeader>
+                <IgbCardContent>
+                    <div class="column-layout group">
+                        <h3 class="h3">
+                            50%
+                        </h3>
+                        <div class="row-layout group_1">
+                            <p class="typography__subtitle-2 text_1">
+                                -10%
+                            </p>
+                            <p class="typography__body-2 content">
+                                from last month
+                            </p>
+                        </div>
+                    </div>
+                </IgbCardContent>
+            </IgbCard>
+        </div>
+        <div class="column-layout group_2">
+            <div class="row-layout filters-and-sorting">
+                <div class="row-layout group_3">
+                    <IgbInput DisplayType="InputType.Search" Value=@_value Placeholder="Search deals..." Outlined=true Change=@(e => _value = e.Detail) class="user-input" deals-scope>
+                        <span slot="prefix">
+                            <span class="material-icons icon_2">
+                                search
+                            </span>
+                        </span>
+                    </IgbInput>
+                </div>
+                <div class="row-layout group_4">
+                    <IgbSelect Outlined=true Value=@_value1 Change=@(e => _value1 = e.Detail.Value) class="user-input" deals-scope>
+                        <IgbSelectItem Value="1">
+                            All statuses
+                        </IgbSelectItem>
+                        <IgbSelectItem Value="2">
+                            Qualified
+                        </IgbSelectItem>
+                        <IgbSelectItem Value="4">
+                            Proposal
+                        </IgbSelectItem>
+                        <IgbSelectItem Value="5">
+                            Negotiation
+                        </IgbSelectItem>
+                        <IgbSelectItem Value="6">
+                            Closed Won
+                        </IgbSelectItem>
+                        <IgbSelectItem Value="7">
+                            Closed Lost
+                        </IgbSelectItem>
+                    </IgbSelect>
+                    <IgbButtonGroup class="button-group" deals-scope>
+                        <IgbToggleButton>
+                            <span class="material-icons">
+                                grid_on
+                            </span>
+                        </IgbToggleButton>
+                        <IgbToggleButton Disabled="true">
+                            <span class="material-icons">
+                                format_list_bulleted
+                            </span>
+                        </IgbToggleButton>
+                    </IgbButtonGroup>
+                </div>
+            </div>
+            <div class="row-layout kanban-view">
+                <div class="column-layout kanban-column">
+                    <div class="row-layout kanban_title_wrapper">
+                        <div class="column-layout group_5">
+                            <div class="column-layout group_6">
+                                <h6 class="content_2">
+                                    Qualified
+                                </h6>
+                                <div class="row-layout group_7">
+                                    <p class="typography__subtitle-2 content_2">
+                                        Total Value
+                                    </p>
+                                    <p class="typography__subtitle-2 content_2">
+                                        $23,000
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <IgbAvatar Initials="3" Shape="AvatarShape.Circle" class="avatar_1 avatar_1_1" deals-scope></IgbAvatar>
+                    </div>
+                    <div class="column-layout group_8">
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Consulting Engagement
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Healthcare Provider
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6">
+                                        $8,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            Jane Smith
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            Jun 11, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Hardware Purchase
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Acme Corp
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6">
+                                        $6,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            John Doe
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            Jun 11, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Client Onboarding
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Tech Corp
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6">
+                                        $9,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            Peter Jones
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            Jun 10, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                        <IgbButton Variant="ButtonVariant.Flat" DisplayType="ButtonBaseType.Button" class="button_1" deals-scope>
+                            <span class="material-icons">
+                                add
+                            </span>
+                            <span>New</span>
+                        </IgbButton>
+                    </div>
+                </div>
+                <div class="column-layout kanban-column-1">
+                    <div class="row-layout group_10">
+                        <div class="column-layout group_5">
+                            <div class="column-layout group_6">
+                                <h6 class="content_2">
+                                    Proposal Sent
+                                </h6>
+                                <div class="row-layout group_7">
+                                    <p class="typography__subtitle-2 content_2">
+                                        Total Value
+                                    </p>
+                                    <p class="typography__subtitle-2 content_2">
+                                        $14,000
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <IgbAvatar Initials="2" Shape="AvatarShape.Circle" class="avatar_1 avatar_1_2" deals-scope></IgbAvatar>
+                    </div>
+                    <div class="column-layout group_8">
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Service Upgrade
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Healthy Living
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6">
+                                        $4,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            Peter Jones
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            Jun 9, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Marketing Campaign
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Acme Corp
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6">
+                                        $10,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            John Doe
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            Jun 8, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                    </div>
+                </div>
+                <div class="column-layout kanban-column-1">
+                    <div class="row-layout group_11">
+                        <div class="column-layout group_5">
+                            <div class="column-layout group_6">
+                                <h6 class="content_2">
+                                    Negotiation
+                                </h6>
+                                <div class="row-layout group_7">
+                                    <p class="typography__subtitle-2 content_2">
+                                        Total Value
+                                    </p>
+                                    <p class="typography__subtitle-2 content_2">
+                                        $38,000
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <IgbAvatar Initials="3" Shape="AvatarShape.Circle" class="avatar_1 avatar_1_3" deals-scope></IgbAvatar>
+                    </div>
+                    <div class="column-layout group_8">
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Software Integration
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Acme Bank
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6">
+                                        $18,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            Sandy Anders
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            Jun 10, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Cloud Migration
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Giant Corp
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6">
+                                        $13,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            Jane Smith
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            Jun 7, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Consulting Engagement
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Healthcare Provider
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6">
+                                        $7,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            Peter Jones
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            Jun 5, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                    </div>
+                </div>
+                <div class="column-layout kanban-column-1">
+                    <div class="row-layout group_12">
+                        <div class="column-layout group_5">
+                            <div class="column-layout group_6">
+                                <h6 class="content_2">
+                                    Closed Won
+                                </h6>
+                                <div class="row-layout group_7">
+                                    <p class="typography__subtitle-2 content_2">
+                                        Total Value
+                                    </p>
+                                    <p class="typography__subtitle-2 content_2">
+                                        $13,000
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <IgbAvatar Initials="2" Shape="AvatarShape.Circle" class="avatar_1 avatar_1_4" deals-scope></IgbAvatar>
+                    </div>
+                    <div class="column-layout group_8">
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Client Onboarding
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Tech Corp
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6">
+                                        $9,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            Jane Smith
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            Jun 1, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Software License
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Tech Co.
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6_1">
+                                        $4,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            Peter Jones
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            May 25, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                    </div>
+                </div>
+                <div class="column-layout kanban-column-1">
+                    <div class="row-layout group_13">
+                        <div class="row-layout group_14">
+                            <div class="column-layout group_6">
+                                <h6 class="content_2">
+                                    Closed Lost
+                                </h6>
+                                <div class="row-layout group_7">
+                                    <p class="typography__subtitle-2 content_2">
+                                        Total Value
+                                    </p>
+                                    <p class="typography__subtitle-2 content_2">
+                                        $6,000
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <IgbAvatar Initials="1" Shape="AvatarShape.Circle" class="avatar_1 avatar_1_5" deals-scope></IgbAvatar>
+                    </div>
+                    <div class="column-layout group_8">
+                        <IgbCard class="card_1" deals-scope>
+                            <IgbCardHeader>
+                                <h3 slot="title">
+                                    Service Upgrade
+                                </h3>
+                                <h5 slot="subtitle">
+                                    Retail Pro
+                                </h5>
+                            </IgbCardHeader>
+                            <IgbCardContent>
+                                <div class="column-layout group_6">
+                                    <h6 class="h6_1">
+                                        $6,000
+                                    </h6>
+                                    <div class="row-layout group_9">
+                                        <p class="typography__body-2 content">
+                                            Jane Smith
+                                        </p>
+                                        <p class="typography__body-2 content">
+                                            May 20, 2025
+                                        </p>
+                                    </div>
+                                </div>
+                            </IgbCardContent>
+                        </IgbCard>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <IgbDialog CloseOnOutsideClick=true @ref=_newDealDialog class="new-deal-dialog" deals-scope>
+        <h5 slot="title">
+            New Deal
+        </h5>
+        <div class="column-layout demo-content">
+            <img src="assets/start-building.svg" alt="" class="image" />
+            <h5 class="h5">
+                Start building!
+            </h5>
+            <p class="typography__body-1 text_2">
+                Remove the "demo-content" container, and add your own content.
+            </p>
+        </div>
+        <div slot="footer">
+            <IgbButton Variant="ButtonVariant.Flat" DisplayType="ButtonBaseType.Button" @onclick=@(e => _newDealDialog!.ToggleAsync()) class="button_1" deals-scope>
+                Close
+            </IgbButton>
+        </div>
+    </IgbDialog>
+</div>
+
+@code {
+    private string _value;
+    private string _value1 = "1";
+    private IgbDialog? _newDealDialog;
+}

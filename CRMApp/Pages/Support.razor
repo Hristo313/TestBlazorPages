@@ -1,0 +1,203 @@
+@layout MainLayout
+@page "/support"
+
+@using Financial
+@using Models.Financial
+@using CRMAIGeneratedData
+@using Models.CRMAIGeneratedData
+@inject IFinancialService FinancialService
+@inject ICRMAIGeneratedDataService CRMAIGeneratedDataService
+
+<div class="row-layout support-container">
+    <div class="column-layout page-container">
+        <div class="column-layout page-header">
+            <div class="row-layout header">
+                <div class="row-layout page-title">
+                    <span class="material-icons icon">
+                        support_agent
+                    </span>
+                    <h5 class="content">
+                        Help &amp; Support
+                    </h5>
+                </div>
+                <IgbButton Disabled=true DisplayType="ButtonBaseType.Button" class="button" support-scope>
+                    <span class="material-icons">
+                        add
+                    </span>
+                    <span>New Ticket</span>
+                </IgbButton>
+            </div>
+        </div>
+        <div class="row-layout group">
+            <div class="row-layout metrics">
+                <IgbCard class="card" support-scope>
+                    <IgbCardHeader>
+                        <div slot="thumbnail">
+                            <IgbAvatar Shape="AvatarShape.Circle" class="avatar" support-scope>
+                                <span class="material-icons icon_1">
+                                    headset
+                                </span>
+                            </IgbAvatar>
+                        </div>
+                        <h3 slot="title">
+                            Total Tickets
+                        </h3>
+                        <h5 slot="subtitle">
+                    </h5>
+                    </IgbCardHeader>
+                    <IgbCardContent>
+                        <div class="column-layout group_1">
+                            <h3 class="h3">
+                                24
+                            </h3>
+                            <div class="row-layout group_2">
+                                <p class="typography__subtitle-2 text">
+                                    +5%
+                                </p>
+                                <p class="typography__body-2 content">
+                                    from last month
+                                </p>
+                            </div>
+                        </div>
+                    </IgbCardContent>
+                </IgbCard>
+                <IgbCard class="card" support-scope>
+                    <IgbCardHeader>
+                        <div slot="thumbnail">
+                            <IgbAvatar Shape="AvatarShape.Circle" class="avatar_1" support-scope>
+                                <span class="material-icons icon_1">
+                                    access_time
+                                </span>
+                            </IgbAvatar>
+                        </div>
+                        <h3 slot="title">
+                            Open Tickets
+                        </h3>
+                        <h5 slot="subtitle">
+                    </h5>
+                    </IgbCardHeader>
+                    <IgbCardContent>
+                        <div class="column-layout group_1">
+                            <h3 class="h3">
+                                14
+                            </h3>
+                            <div class="row-layout group_2">
+                                <p class="typography__subtitle-2 text">
+                                    +3%
+                                </p>
+                                <p class="typography__body-2 content">
+                                    from last month
+                                </p>
+                            </div>
+                        </div>
+                    </IgbCardContent>
+                </IgbCard>
+                <IgbCard class="card" support-scope>
+                    <IgbCardHeader>
+                        <div slot="thumbnail">
+                            <IgbAvatar Shape="AvatarShape.Circle" class="avatar_2" support-scope>
+                                <span class="material-icons icon_1">
+                                    task_alt
+                                </span>
+                            </IgbAvatar>
+                        </div>
+                        <h3 slot="title">
+                            Resolved Tickets
+                        </h3>
+                        <h5 slot="subtitle">
+                    </h5>
+                    </IgbCardHeader>
+                    <IgbCardContent>
+                        <div class="column-layout group_1">
+                            <h3 class="h3">
+                                10
+                            </h3>
+                            <div class="row-layout group_2">
+                                <p class="typography__subtitle-2 text_1">
+                                    -15%
+                                </p>
+                                <p class="typography__body-2 content">
+                                    from last month
+                                </p>
+                            </div>
+                        </div>
+                    </IgbCardContent>
+                </IgbCard>
+                <IgbCard class="card" support-scope>
+                    <IgbCardHeader>
+                        <div slot="thumbnail">
+                            <IgbAvatar Shape="AvatarShape.Circle" class="avatar_3" support-scope>
+                                <span class="material-icons icon_1">
+                                    av_timer
+                                </span>
+                            </IgbAvatar>
+                        </div>
+                        <h3 slot="title">
+                            Avg. Resolution Time
+                        </h3>
+                        <h5 slot="subtitle">
+                    </h5>
+                    </IgbCardHeader>
+                    <IgbCardContent>
+                        <div class="column-layout group_1">
+                            <h3 class="h3">
+                                1.5 days
+                            </h3>
+                            <div class="row-layout group_2">
+                                <p class="typography__subtitle-2 text">
+                                    +0.5%
+                                </p>
+                                <p class="typography__body-2 content">
+                                    from last month
+                                </p>
+                            </div>
+                        </div>
+                    </IgbCardContent>
+                </IgbCard>
+            </div>
+            <div class="column-layout group_3">
+                <div class="row-layout group_4">
+                    <div class="column-layout group_5">
+                        <p class="typography__body-1 content">
+                            Tickets by Priority
+                        </p>
+                        <IgbPieChart DataSource=@_financialBoxOfficeRevenue LabelMemberPath="Franchise" ValueMemberPath="TotalWorldBoxOfficeRevenue" class="pie-chart" support-scope></IgbPieChart>
+                    </div>
+                    <div class="column-layout group_5">
+                        <p class="typography__body-1 content">
+                            Ticket Trend
+                        </p>
+                        <IgbCategoryChart DataSource=@_financialSales ChartType="CategoryChartType.Spline" InitialGroups="Country" InitialSummaries="SUM(Profit), SUM(Sales)" GroupSorts="Country asc" ComputedPlotAreaMarginMode="ComputedPlotAreaMarginMode.Series" class="category-chart" support-scope></IgbCategoryChart>
+                    </div>
+                </div>
+                <div class="column-layout group_6">
+                    <p class="typography__body-1 content">
+                        All Support Tickets
+                    </p>
+                    <IgbGrid Data=@_cRMAIGeneratedDataSupportTickets PrimaryKey="TicketNumber" AllowFiltering=true FilterMode="FilterMode.ExcelStyleFilter" class="ig-typography grid" support-scope>
+                        <IgbColumn Field="TicketNumber" DataType="GridColumnDataType.String" Header="TicketNumber" Sortable=true Selectable=false></IgbColumn>
+                        <IgbColumn Field="Subject" DataType="GridColumnDataType.String" Header="Subject" Sortable=true Selectable=false></IgbColumn>
+                        <IgbColumn Field="Customer" DataType="GridColumnDataType.String" Header="Customer" Sortable=true Selectable=false></IgbColumn>
+                        <IgbColumn Field="Status" DataType="GridColumnDataType.String" Header="Status" Sortable=true Selectable=false></IgbColumn>
+                        <IgbColumn Field="Priority" DataType="GridColumnDataType.String" Header="Priority" Sortable=true Selectable=false></IgbColumn>
+                        <IgbColumn Field="Updated" DataType="GridColumnDataType.Date" Header="Updated" Sortable=true Selectable=false></IgbColumn>
+                    </IgbGrid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<BoxOfficeRevenueType> _financialBoxOfficeRevenue = new();
+    private List<SalesType> _financialSales = new();
+    private List<SupportTicketsType> _cRMAIGeneratedDataSupportTickets = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _financialBoxOfficeRevenue = await FinancialService.GetBoxOfficeRevenue();
+        _financialSales = await FinancialService.GetSales();
+        _cRMAIGeneratedDataSupportTickets = await CRMAIGeneratedDataService.GetSupportTicketsList();
+        await base.OnInitializedAsync();
+    }
+}

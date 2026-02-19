@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IgniteUI.Blazor.Trial" Version="25.1.82" />
+    <PackageReference Include="System.Reactive" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Shared/MainLayout.razor.css" CssScope="master_view-scope" />
+    <None Update="Pages/Home.razor.css" CssScope="home-scope" />
+    <None Update="Pages/Customers.razor.css" CssScope="customers-scope" />
+    <None Update="Pages/Customer_details.razor.css" CssScope="customer_details-scope" />
+    <None Update="Pages/Deals.razor.css" CssScope="deals-scope" />
+    <None Update="Pages/Reports.razor.css" CssScope="reports-scope" />
+    <None Update="Pages/Support.razor.css" CssScope="support-scope" />
+    <None Update="Pages/Calendar.razor.css" CssScope="calendar-scope" />
+    <None Update="Pages/Tasks.razor.css" CssScope="tasks-scope" />
+  </ItemGroup>
+
+</Project>
