@@ -29,8 +29,8 @@ jobs:
       run: dotnet restore
     - name: Set project name
       run: echo "PROJECT_NAME=$(basename *.sin .sin)" >> $GITHUB_ENV
-    - name: Update NavigationManager in Razor files
-      run: find ${{ env.PROJECT_NAME }} -type f -name "*.razor" -exec sed -i "s|NavigationManager.NavigateTo(path);|NavigationManager.NavigateTo(path.TrimStart('/'));|" {} \;
+    # - name: Update NavigationManager in Razor files
+    #   run: find ${{ env.PROJECT_NAME }} -type f -name "*.razor" -exec sed -i "s|NavigationManager.NavigateTo(path);|NavigationManager.NavigateTo(path.TrimStart('/'));|" {} \;
     - name: Update static data paths in Services folder
       run: if [ -d "${{ env.PROJECT_NAME }}/Services" ]; then find "${{ env.PROJECT_NAME }}/Services" -type f -exec sed -i "s|/static-data/|/${{ github.event.repository.name }}/static-data/|g" {} \;; fi
     - name: Publish Blazor WebAssembly
